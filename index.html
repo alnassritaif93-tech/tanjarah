@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طنجرة - أكل منزلي أصيل</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: #f7f9f6;
+            color: #333;
+            padding-bottom: 60px;
+        }
+
+        header {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #4a7c59;
+        }
+
+        header .logo img {
+            height: 65px;
+            display: block;
+        }
+
+        header nav a {
+            text-decoration: none;
+            color: #4a7c59;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        header nav a:hover {
+            color: #b22222;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('https://i.postimg.cc/XYcdsGHg/CD1CEFE1-E654-426A-9733-60D09B749F57.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 45vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 { font-size: 32px; margin-bottom: 10px; }
+        .hero p { font-size: 16px; margin-bottom: 20px; }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 25px;
+            background-color: #b22222;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-add {
+            background-color: #4a7c59;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background-color: #25D366;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .menu-section {
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .menu-section h2 {
+            font-size: 26px;
+            margin-bottom: 30px;
+            color: #4a7c59;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .menu-item {
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e1e8e2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s;
+        }
+
+        .dish-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .menu-item h3 { margin-bottom: 8px; color: #333; font-size: 20px; }
+        .menu-item p { color: #666; font-size: 14px; margin-bottom: 15px; line-height: 1.5; }
+
+        .menu-item .price {
+            font-weight: bold;
+            color: #b22222;
+            font-size: 22px;
+            display: block;
+            margin-top: auto;
+        }
+
+        /* تنسيق السلة ونموذج الشراء */
+        .cart-section {
+            background-color: #ffffff;
+            padding: 30px 5%;
+            margin: 20px 5%;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e1e8e2;
+        }
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .cart-table th, .cart-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .checkout-form {
+            max-width: 500px;
+            margin: 20px auto 0 auto;
+            text-align: right;
+        }
+        .checkout-form label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        .checkout-form input, .checkout-form select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-section {
+            background-color: #4a7c59;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .social-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .whatsapp-btn { background-color: #25D366; }
+        .instagram-btn { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+
+        /* استايل لوحة التحكم للمالك */
+        .admin-panel {
+            background-color: #eef2ed;
+            border-top: 2px solid #4a7c59;
+            padding: 30px 5%;
+        }
+        .admin-title {
+            color: #4a7c59;
+            margin-bottom: 15px;
+            font-size: 20px;
+            text-align: center;
+        }
+        .login-box, .panel-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .admin-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .admin-table {
+            width: 100%;
+            margin-top: 15px;
+            border-collapse: collapse;
+        }
+        .admin-table th, .admin-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        .toggle-btn {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            background-color: #4a7c59;
+            color: white;
+        }
+        .btn-danger { background-color: #b22222; }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="https://i.postimg.cc/XYcdsGHg/CD1CEFE1-E654-426A-9733-60D09B749F57.jpg" alt="شعار طنجرة">
+        </div>
+        <nav>
+            <a href="#home">الرئيسية</a>
+            <a href="#menu">الأطباق</a>
+            <a href="#cart">السلة</a>
+            <a href="#contact">الطلب والاستفسار</a>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div id="store-status" class="status-badge">المتجر يستقبل طلباتكم الآن المطبخ مفتوح 🟢</div>
+            <h1>أكل منزلي بحب ونكهة أصيلة 🍲</h1>
+            <p>نطبخ لكِ بكل شغف كأنك في بيتك، نستخدم أجود المكونات الطازجة يومياً.</p>
+            <a href="#menu" class="btn">تصفح المنيو</a>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <h2>أشهر أطباق طنجرة ✨</h2>
+        <div class="menu-grid" id="menu-container">
+            
+            <div class="menu-item" id="item-1">
+                <img src="https://i.postimg.cc/VLkxfnMH/AD0C716B-ED18-4B75-B687-F7017B58A9CF.jpg" alt="ورق عنب طنجرة كبير" class="dish-img">
+                <h3>ورق عنب طنجرة (الحجم الكبير)</h3>
+                <p>طنجرة ورق عنب كبيرة غنية بالنكهة الأصيلة، تحتوي على ٦٠ حبة ومزينة بحبات الرمان الطازجة وقطع البطاطا اللذيذة.</p>
+                <span class="price" id="price-1" data-raw-price="6">٦ ر.ع</span>
+                <button onclick="addToCart(1, 'ورق عنب كبير', 6)" class="btn btn-add">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="menu-item" id="item-2">
+                <img src="https://i.postimg.cc/6Qr5NCJf/B56149BE-5388-447A-9284-A8757CDEEC94.jpg" alt="ورق عنب طنجرة صغير" class="dish-img">
+                <h3>ورق عنب طنجرة (الحجم الصغير)</h3>
+                <p>طنجرة ورق عنب صغيرة مثالية للجمعات الخفيفة، تحتوي على ٣٠ حبة مع إضافة الرمان الشهي والبطاطا المسبكة.</p>
+                <span class="price" id="price-2" data-raw-price="4">٤ ر.ع</span>
+                <button onclick="addToCart(2, 'ورق عنب صغير', 4)" class="btn btn-add">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="menu-item" id="item-3">
+                <img src="https://i.postimg.cc/j2cY8hfJ/79E2C7A2-9D79-4A0D-A2A1-83D9FEE27C3E.jpg" alt="ورق عنب ١٠ حبات" class="dish-img">
+                <h3>ورق عنب طنجرة (١٠ حبات)</h3>
+                <p>وجبة خفيفة ومثالية من ورق العنب اللذيذ والمسبك، تحتوي على ١٠ حبات غنية بالنكهة لمتعتك الشخصية.</p>
+                <span class="price" id="price-3" data-raw-price="1">١ ر.ع</span>
+                <button onclick="addToCart(3, 'ورق عنب ١٠ حبات', 1)" class="btn btn-add">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="menu-item" id="item-4">
+                <img src="https://i.postimg.cc/sxqRW2CR/03C5202C-DECD-4734-9B49-27D23D279362.jpg" alt="فتة ورق ملفوف" class="dish-img">
+                <h3>فتة ورق ملفوف</h3>
+                <p>طبقات مميزة غنية ومتروسة نكهة، تقدم بلمستنا الخاصة مع صوص الروب المنعش والخبز المقرمش.</p>
+                <span class="price" id="price-4" data-raw-price="2">٢ ر.ع</span>
+                <button onclick="addToCart(4, 'فتة ورق ملفوف', 2)" class="btn btn-add">إضافة للسلة 🛒</button>
+            </div>
+
+            <div class="menu-item" id="item-5">
+                <img src="https://i.postimg.cc/sxqRW2CR/03C5202C-DECD-4734-9B49-27D23D279362.jpg" alt="فتة ورق عنب" class="dish-img">
+                <h3>فتة ورق عنب</h3>
+                <p>مزيج حامض وحلو لا يقاوم من ورق العنب المفروم، يقدم مع إضافات صوص الروب الغني والخبز المحمص المقرمش.</p>
+                <span class="price" id="price-5" data-raw-price="2">٢ ر.ع</span>
+                <button onclick="addToCart(5, 'فتة ورق عنب', 2)" class="btn btn-add">إضافة للسلة 🛒</button>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="cart" class="cart-section">
+        <h2 style="text-align: center; color: #4a7c59; margin-bottom: 20px;">سلة المشتريات 🛒</h2>
+        <div id="cart-empty-msg" style="text-align: center; color: #666;">السلة فارغة حالياً، أضف بعض الأطباق اللذيذة!</div>
+        
+        <div id="cart-content" style="display: none;">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>الطبق</th>
+                        <th>السعر</th>
+                        <th>الكمية</th>
+                        <th>الإجمالي</th>
+                        <th>إجراء</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items-body"></tbody>
+            </table>
+            <h3 style="text-align: left; color: #b22222;">إجمالي السلة: <span id="cart-total-price">0</span> ر.ع</h3>
+            
+            <div class="checkout-form">
+                <h3 style="color:#4a7c59; border-bottom:2px solid #4a7c59; padding-bottom:5px; margin-bottom:15px;">تفاصيل التوصيل والدفع</h3>
+                <label>الاسم الكريم:</label>
+                <input type="text" id="customer-name" placeholder="أدخل اسمك الكامل" required>
+                
+                <label>رقم الهاتف للاتصال (مع رمز الدولة، مثال: 968xxxxxxx):</label>
+                <input type="tel" id="customer-phone" placeholder="968XXXXXXXX" required>
+                
+                <label>العنوان بالتفصيل:</label>
+                <input type="text" id="customer-address" placeholder="الولاية، المنطقة، رقم المنزل" required>
+                
+                <label>طريقة الدفع المتوفرة:</label>
+                <select id="payment-method" disabled>
+                    <option value="كاش">الدفع عند الاستلام (كاش) 💵</option>
+                </select>
+                
+                <button onclick="submitOrder()" class="btn" style="width: 100%; margin-top: 20px; background-color: #25D366;">تأكيد وإرسال الطلب 👍</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2>تابعونا واطلبوا الآن 👩‍🍳</h2>
+        <p>يسعدنا استقبال طلباتكم ومتابعتكم عبر حساباتنا الرسمية:</p>
+        <div class="social-buttons">
+            <a href="https://wa.me/96892013267" target="_blank" class="btn whatsapp-btn">اتصال مباشر عبر الواتساب 📱</a>
+            <a href="https://instagram.com/tanjara.kitchen" target="_blank" class="btn instagram-btn">انستقرام طنجرة 📸</a>
+        </div>
+    </section>
+
+    <section class="admin-panel">
+        <h3 class="admin-title">🔐 لوحة تحكم الإدارة (خاصة بصاحب المتجر)</h3>
+        
+        <div id="admin-login" class="login-box">
+            <p style="font-size: 14px; color: #566;">أدخل رمز التحقق لتعديل الأسعار وإدارة الطلبات</p>
+            <input type="password" id="pin-input" class="admin-input" placeholder="أدخل رمز التحقق هنا">
+            <button onclick="checkPin()" class="btn" style="padding: 7px 20px; font-size:14px;">دخول</button>
+            <p id="login-error" style="color: red; font-size: 13px; margin-top: 5px; display: none;">الرمز غير صحيح!</p>
+        </div>
+
+        <div id="panel-content" class="panel-content" style="display: none;">
+            <p style="color: green; font-weight: bold; margin-bottom: 15px;">أهلاً بكِ في لوحة التحكم العُليا ✨</p>
+            
+            <div style="margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
+                <label><strong>حالة المطبخ الحالية:</strong></label><br>
+                <button onclick="toggleStore(true)" class="toggle-btn" style="background-color: green; margin-top:5px;">مفتوح 🟢</button>
+                <button onclick="toggleStore(false)" class="toggle-btn" style="background-color: red; margin-top:5px;">مغلق 🔴</button>
+            </div>
+
+            <h4 style="color:#4a7c59; text-align:right; margin-top:20px;">📋 إدارة المنيو والأسعار:</h4>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>الطبق</th>
+                        <th>السعر (ر.ع)</th>
+                        <th>العرض بالمنيو</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ورق عنب كبير</td>
+                        <td><input type="number" id="p-input-1" value="6" style="width:50px; text-align:center;" oninput="updatePrice(1)"></td>
+                        <td><button onclick="toggleItem(1)" class="toggle-btn" id="btn-item-1">إخفاء</button></td>
+                    </tr>
+                    <tr>
+                        <td>ورق عنب صغير</td>
+                        <td><input type="number" id="p-input-2" value="4" style="width:50px; text-align:center;" oninput="updatePrice(2)"></td>
+                        <td><button onclick="toggleItem(2)" class="toggle-btn" id="btn-item-2">إخفاء</button></td>
+                    </tr>
+                    <tr>
+                        <td>ورق عنب ١٠ حبات</td>
+                        <td><input type="number" id="p-input-3" value="1" style="width:50px; text-align:center;" oninput="updatePrice(3)"></td>
+                        <td><button onclick="toggleItem(3)" class="toggle-btn" id="btn-item-3">إخفاء</button></td>
+                    </tr>
+                    <tr>
+                        <td>فتة ورق ملفوف</td>
+                        <td><input type="number" id="p-input-4" value="2" style="width:50px; text-align:center;" oninput="updatePrice(4)"></td>
+                        <td><button onclick="toggleItem(4)" class="toggle-btn" id="btn-item-4">إخفاء</button></td>
+                    </tr>
+                    <tr>
+                        <td>فتة ورق عنب</td>
+                        <td><input type="number" id="p-input-5" value="2" style="width:50px; text-align:center;" oninput="updatePrice(5)"></td>
+                        <td><button onclick="toggleItem(5)" class="toggle-btn" id="btn-item-5">إخفاء</button></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4 style="color:#b22222; text-align:right; margin-top:30px;">📥 طلبات الزبائن الواردة:</h4>
+            <div style="overflow-x: auto;">
+                <table class="admin-table" style="background-color: #fffbfa;">
+                    <thead>
+                        <tr>
+                            <th>رقم الطلب</th>
+                            <th>الزبون</th>
+                            <th>الطلب</th>
+                            <th>الإجمالي</th>
+                            <th>العنوان</th>
+                            <th>طريقة الدفع</th>
+                            <th>الحالة / إجراء</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-orders-body">
+                        <tr>
+                            <td colspan="7" style="color: #666;">لا توجد طلبات واردة حالياً.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>جميع الحقوق محفوظة لبزنس طنجرة ©️ 2026</p>
+    </footer>
+
+    <script>
+        const SECRET_PIN = "2026";
+        
+        let cart = [];
+        let orders = JSON.parse(localStorage.getItem('tankard_orders')) || [];
+
+        function checkPin() {
+            const userInput = document.getElementById('pin-input').value;
+            if(userInput === SECRET_PIN) {
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('panel-content').style.display = 'block';
+                renderAdminOrders();
+            } else {
+                document.getElementById('login-error').style.display = 'block';
+            }
+        }
+
+        function updatePrice(id) {
+            const newPrice = parseFloat(document.getElementById(`p-input-${id}`).value) || 0;
+            const priceSpan = document.getElementById(`price-${id}`);
+            priceSpan.innerText = newPrice + " ر.ع";
+            priceSpan.setAttribute('data-raw-price', newPrice);
+        }
+
+        function toggleItem(id) {
+            const item = document.getElementById(`item-${id}`);
+            const btn = document.getElementById(`btn-item-${id}`);
+            if(item.style.display === 'none') {
+                item.style.display = 'flex';
+                btn.innerText = 'إخفاء';
+                btn.style.backgroundColor = '#4a7c59';
+            } else {
+                item.style.display = 'none';
+                btn.innerText = 'إظهار';
+                btn.style.backgroundColor = '#b22222';
+            }
+        }
+
+        function toggleStore(isOpen) {
+            const statusBadge = document.getElementById('store-status');
+            if(isOpen) {
+                statusBadge.innerText = "المتجر يستقبل طلباتكم الآن المطبخ مفتوح 🟢";
+                statusBadge.style.backgroundColor = "#25D366";
+            } else {
+                statusBadge.innerText = "المعذرة، المتجر مغلق حالياً ولا يستقبل طلبات 🔴";
+                statusBadge.style.backgroundColor = "#b22222";
+            }
+        }
+
+        // --- 🛒 وظائف سلة المشتريات ---
+        function addToCart(id, name, defaultPrice) {
+            const currentPrice = parseFloat(document.getElementById(`price-${id}`).getAttribute('data-raw-price')) || defaultPrice;
+            
+            const existingItem = cart.find(item => item.id === id);
+            if(existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ id: id, name: name, price: currentPrice, qty: 1 });
+            }
+            renderCart();
+            alert(`تم إضافة "${name}" إلى السلة بنجاح!`);
+            document.getElementById('cart').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function changeQty(id, delta) {
+            const item = cart.find(item => item.id === id);
+            if(item) {
+                item.qty += delta;
+                if(item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            renderCart();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            renderCart();
+        }
+
+        function renderCart() {
+            const emptyMsg = document.getElementById('cart-empty-msg');
+            const cartContent = document.getElementById('cart-content');
+            const tbody = document.getElementById('cart-items-body');
+            const totalSpan = document.getElementById('cart-total-price');
+            
+            if(cart.length === 0) {
+                emptyMsg.style.display = 'block';
+                cartContent.style.display = 'none';
+                return;
+            }
+            
+            emptyMsg.style.display = 'none';
+            cartContent.style.display = 'block';
+            tbody.innerHTML = '';
+            
+            let total = 0;
+            cart.forEach(item => {
+                let itemTotal = item.price * item.qty;
+                total += itemTotal;
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.price} ر.ع</td>
+                        <td>
+                            <button onclick="changeQty(${item.id}, -1)" style="padding:2px 7px;">-</button>
+                            <span style="margin:0 5px; font-weight:bold;">${item.qty}</span>
+                            <button onclick="changeQty(${item.id}, 1)" style="padding:2px 7px;">+</button>
+                        </td>
+                        <td>${itemTotal} ر.ع</td>
+                        <td><button onclick="removeFromCart(${item.id})" class="toggle-btn btn-danger" style="padding:3px 8px;">حذف</button></td>
+                    </tr>
+                `;
+            });
+            totalSpan.innerText = total;
+        }
+
+        // --- 📥 تقديم الطلب ---
+        function submitOrder() {
+            const name = document.getElementById('customer-name').value.trim();
+            const phone = document.getElementById('customer-phone').value.trim();
+            const address = document.getElementById('customer-address').value.trim();
+            
+            if(!name || !phone || !address) {
+                alert('الرجاء تعبئة كافة بيانات التوصيل المتبقية!');
+                return;
+            }
+            
+            let total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            let itemsSummary = cart.map(item => `${item.name} (عدد: ${item.qty})`).join(' ، ');
+            
+            const newOrder = {
+                id: Date.now().toString().slice(-5),
+                name: name,
+                phone: phone,
+                address: address,
+                items: itemsSummary,
+                total: total,
+                payment: "كاش عند الاستلام",
+                status: "قيد الانتظار ⏳"
+            };
+            
+            orders.push(newOrder);
+            localStorage.setItem('tankard_orders', JSON.stringify(orders));
+            
+            cart = [];
+            renderCart();
+            document.getElementById('customer-name').value = '';
+            document.getElementById('customer-phone').value = '';
+            document.getElementById('customer-address').value = '';
+            
+            alert(`شكراً لك ${name}! تم تسجيل طلبك بنجاح (رقم الطلب: ${newOrder.id}) وسيتواصل معك المطبخ قريباً.`);
+            renderAdminOrders();
+        }
+
+        // --- 👩‍🍳 إدارة الطلبات ---
+        function renderAdminOrders() {
+            const tbody = document.getElementById('admin-orders-body');
+            if(!tbody) return;
+            
+            if(orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" style="color: #666;">لا توجد طلبات واردة حالياً.</td></tr>`;
+                return;
+            }
+            
+            tbody.innerHTML = '';
+            orders.forEach((order, index) => {
+                tbody.innerHTML += `
+                    <tr style="border-bottom: 2px solid #ddd;">
+                        <td><strong>#${order.id}</strong></td>
+                        <td>
+                            ${order.name}<br>
+                            <a href="https://wa.me/${order.phone}" target="_blank" style="color:green; font-size:12px; font-weight:bold; text-decoration:none;">📱 واتساب العميل</a>
+                        </td>
+                        <td style="text-align:right; font-size:13px;">${order.items}</td>
+                        <td style="color:#b22222; font-weight:bold;">${order.total} ر.ع</td>
+                        <td style="font-size:12px;">${order.address}</td>
+                        <td><span style="background-color:#fff3cd; padding:3px 7px; border-radius:5px; font-size:12px;">${order.payment}</span></td>
+                        <td>
+                            <span id="status-label-${index}" style="font-weight:bold; display:block; margin-bottom:5px;">${order.status}</span>
+                            <button onclick="updateOrderStatus(${index}, 'تم التجهيز ✅')" class="toggle-btn" style="font-size:11px; padding:3px 6px; background-color:blue;">تجهيز</button>
+                            <button onclick="deleteOrder(${index})" class="toggle-btn btn-danger" style="font-size:11px; padding:3px 6px;">حذف</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function updateOrderStatus(index, newStatus) {
+            orders[index].status = newStatus;
+            localStorage.setItem('tankard_orders', JSON.stringify(orders));
+            renderAdminOrders();
+        }
+
+        function deleteOrder(index) {
+            if(confirm('هل أنتِ متأكدة من حذف هذا الطلب من القائمة؟')) {
+                orders.splice(index, 1);
+                localStorage.setItem('tankard_orders', JSON.stringify(orders));
+                renderAdminOrders();
+            }
+        }
+    </script>
+
+</body>
+</html>
